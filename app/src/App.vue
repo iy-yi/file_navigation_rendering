@@ -38,19 +38,20 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <FileView/>
+
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+// import HelloWorld from './components/HelloWorld';
+import FileView from './components/FileView';
 
 export default {
   name: 'App',
-
   components: {
-    HelloWorld,
+    FileView,
   },
 
   data: () => ({
