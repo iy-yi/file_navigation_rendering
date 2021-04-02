@@ -1,5 +1,5 @@
 <template>
-  <li><strong><a @click.prevent="navigate()" :href="f.path">{{ f.name }}</a></strong></li>
+  <li><strong><a :href="'#'+f.path">{{ f.name }}</a></strong></li>
 </template>
 
 <script>

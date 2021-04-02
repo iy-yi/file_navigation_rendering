@@ -13,13 +13,13 @@
           </div>
         </div>
         <div v-if="!this.isLoading">
-          <Breadcrumb :p="path" @path="updateStructure"></Breadcrumb>
+          <Breadcrumb :p="path"></Breadcrumb>
           <ul>
             <template v-for="file in this.structure.files">
               <File :f="file" :key="file.name" />
             </template>
             <template v-for="folder in this.structure.folders">
-              <Folder :f="folder" :key="folder.name" @path="updateStructure"></Folder>
+              <Folder :f="folder" :key="folder.name"></Folder>
             </template>
           </ul>
         </div>
@@ -64,19 +64,22 @@ export default {
       folders: [],
     },
     isLoading: true,
-    path: 'public',
+    // path: 'public',
     }
+  },
+  props: {
+    path: String,
   },
   methods: {
     getFiles(path) {
-      window.location.hash = path;
-      axios.get('http://localhost:3000/files', {
+      // window.location.hash = path;
+      axios.get('http://localhost:3000/api/files', {
         params: {
           root: path,
         },
         })
       .then((response) => {
-        this.path = path;
+        // this.path = path;
         console.log(response.data);
         this.structure.files = response.data.files;
         this.structure.folders = response.data.directories;
@@ -93,7 +96,12 @@ export default {
     }
   },
   created() {
-      this.getFiles(this.path);
+    this.getFiles(this.path);
+  },
+  watch: {
+    path() {
+      this.updateStructure(this.path);
     }
+  }
 }
 </script>

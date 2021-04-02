@@ -1,7 +1,7 @@
 <template>
   <div>
       <span v-for="(f, i) in folders" :key=i>
-      <a @click.prevent="navigate(f)" :href="f.path">{{ f.name }}</a>
+      <a :href="f.path">{{ f.name }}</a>
       <i v-if="i !== (folders.length - 1)"> &raquo; </i>
       </span>
     </div>
@@ -20,7 +20,7 @@ export default {
       const parts = this.p.split('/'); 
       for (const item of parts) {
         slug += item;
-        output.push({'name': item || 'home', 'path': slug});
+        output.push({'name': item || 'home', 'path': '#' + slug});
         slug += '/';
       }
       // console.log(output);

@@ -38,14 +38,13 @@
     </v-app-bar>
 
     <v-main>
-      <StructureView/>
+      <StructureView :path="path"/>
 
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld';
 import StructureView from './components/StructureView';
 
 export default {
@@ -53,9 +52,22 @@ export default {
   components: {
     StructureView,
   },
-
   data: () => ({
-    //
+    path: '',
   }),
+  methods: {
+    updateHash() {
+      const hash = window.location.hash.substring(1);
+      this.path = (hash || 'public');
+    }
+  },
+  created() {
+    this.updateHash();
+  },
+  mounted() {
+    window.onhashchange = () => {
+      this.updateHash();
+    }
+  }
 };
 </script>
