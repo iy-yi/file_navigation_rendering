@@ -23,7 +23,8 @@ app.get('/files', (req, res) => {
   fs.promises.readdir(root, { withFileTypes: true })
     .then((dirents) => {
       const files = dirents.filter((dirent) => dirent.isFile());
-      const directories = dirents.filter((dirent) => dirent.isDirectory());
+      const directories = dirents.filter((dirent) => dirent.isDirectory()).map((entry) => ({ ...entry, path: `${root}/${entry.name}` }));
+      console.log(files);
       res.status(200).send({ files, directories, root });
     })
     .catch((err) => {

@@ -38,7 +38,7 @@
     </v-app-bar>
 
     <v-main>
-      <FileView/>
+      <StructureView/>
 
     </v-main>
   </v-app>
@@ -46,12 +46,12 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld';
-import FileView from './components/FileView';
+import StructureView from './components/StructureView';
 
 export default {
   name: 'App',
   components: {
-    FileView,
+    StructureView,
   },
 
   data: () => ({
