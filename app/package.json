@@ -13,6 +13,7 @@
     "file-saver": "^2.0.5",
     "url-join": "^4.0.1",
     "vue": "^2.6.11",
+    "vue-pdf": "^4.2.0",
     "vuetify": "^2.4.0"
   },
   "devDependencies": {

@@ -38,19 +38,22 @@
     </v-app-bar>
 
     <v-main>
-      <StructureView :path="path"/>
+      <PDFView />
+      <!-- <StructureView :path="path"/> -->
 
     </v-main>
   </v-app>
 </template>
 
 <script>
-import StructureView from './components/StructureView';
+// import StructureView from './components/StructureView';
+import PDFView from './components/PDFView';
 
 export default {
   name: 'App',
   components: {
-    StructureView,
+    // StructureView,
+    PDFView,
   },
   data: () => ({
     path: '',
