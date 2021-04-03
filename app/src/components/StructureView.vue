@@ -4,9 +4,8 @@
         <div v-if="this.isLoading">       
           <div v-if="isLoading === 'error'">
             <v-alert border="top" color="red lighten-2" dark>
-              Failed to load the directory.
+              Failed to load the directory..<a href=""> Go home </a>
             </v-alert>
-            <p><a href="">Go home</a></p>
           </div>
           <div v-else>
             <p>Loading the page...</p>
@@ -24,27 +23,6 @@
           </ul>
         </div>
       </div>
-        <!-- <v-row>
-            <v-col cols="2">
-                <v-btn
-                    v-on:click="click('sample.csv')"
-                    color="primary"
-                    block
-                >
-                    Download csv
-                </v-btn>
-            </v-col>
-
-            <v-col cols="2">
-                <v-btn
-                    v-on:click="click('sample.png')"
-                    color="primary"
-                    block
-                >
-                    Download image
-                </v-btn>
-            </v-col>
-        </v-row> -->
     </v-container>
 </template>
 
@@ -53,6 +31,7 @@ import axios from 'axios';
 import Folder from './Folder';
 import File from './File';
 import Breadcrumb from './Breadcrumb';
+// import PDFView from './PDFView';
 
 export default {
   name: 'StructureView',
@@ -77,7 +56,7 @@ export default {
         params: {
           root: path,
         },
-        })
+      })
       .then((response) => {
         // this.path = path;
         console.log(response.data);
@@ -91,15 +70,18 @@ export default {
       })
     },
     updateStructure(path) {
-      this.isLoading = true;
-      this.getFiles(path);
+        this.isFile = false;
+        this.isLoading = true;
+        this.getFiles(path);
     }
   },
   created() {
-    this.getFiles(this.path);
+    // this.getFiles(this.path);
+    this.updateStructure(this.path);
   },
   watch: {
     path() {
+      console.log("watch", this.path);
       this.updateStructure(this.path);
     }
   }

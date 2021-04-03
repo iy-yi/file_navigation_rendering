@@ -1,5 +1,10 @@
 <template>
 <v-container>
+  <div v-if="this.message !== ''">
+    <v-alert border="top" color="red lighten-2" dark>
+      {{this.message}}
+    </v-alert>
+  </div>
   <v-toolbar dense>
     <v-btn small @click.stop="prePage">Previous</v-btn>
     <v-spacer></v-spacer>
@@ -7,6 +12,7 @@
     <v-spacer></v-spacer>
     <v-btn small @click.stop="nextPage">Next</v-btn>
   </v-toolbar>
+
   <pdf ref="pdf"
     :src="url"
     :page="pageNum"
@@ -19,21 +25,52 @@
 
 <script>
 import pdf from 'vue-pdf'
+import axios from 'axios';
 export default {
   components:{
       pdf
   },
   data(){
     return {
-      url: "./sample.pdf",
+      url: "",
+      // url: "http://localhost:3000/cmpe273.pdf",
       pageNum: 1,
       pageTotalNum: 1,
+      message: "",
+      SERVER: 'http://localhost:3000/',
     }
   },
+  props: {
+    path: String,
+  },
   mounted(){
-    this.getNumPages()
+    const parts = this.path.split('public/');
+    this.url=parts[1];
+    this.getNumPages(this.url);
+    const dirParts = this.path.split('/');
+    const fileName = dirParts[dirParts.length-1];
+    this.downloadFile(fileName);
   },
   methods: {
+    downloadFile(fileName) {
+      axios.get(`http://localhost:3000/api/download/`, {
+        params: {
+          file: this.path,
+        },
+        responseType: 'blob', // 'arraybuffer'
+      })
+      .then((response)=> {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },
     prePage() {
         let page = this.pageNum
         page = page > 1 ? page - 1 : this.pageTotalNum
@@ -44,18 +81,21 @@ export default {
         page = page < this.pageTotalNum ? page + 1 : 1
         this.pageNum = page
       },
-     getNumPages() {
-        const loadingTask = pdf.createLoadingTask(this.url);
+
+     getNumPages(url) {
+       const pdfURL = this.SERVER+url;
+       console.log(pdfURL);
+        const loadingTask = pdf.createLoadingTask(pdfURL);
         // console.log("pdf", pdf);
         this.pageTotalNum = pdf.numPages;
         this.url = loadingTask;
-        loadingTask.promise
-        .then(pdf => {
-          this.url = loadingTask
-          this.pageTotalNum = pdf.numPages
+        loadingTask.promise.then(pdf => {
+          this.message = "";
+          this.url = loadingTask;
+          this.pageTotalNum = pdf.numPages;
         })
         .catch(() => {
-          console.error('pdf loading failed!')
+          this.message = 'File loading failed!';
         })
       },    
   }

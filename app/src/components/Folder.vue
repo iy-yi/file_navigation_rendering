@@ -8,11 +8,11 @@ export default {
   props: {
     f: Object,
   },
-  methods: {
-    navigate() {
-      console.log('folder:', this.f.path);
-      this.$emit('path', this.f.path);
-    }
-  }
+  // methods: {
+  //   navigate() {
+  //     console.log('folder:', this.f.path);
+  //     this.$emit('path', this.f.path);
+  //   }
+  // }
 }
 </script>

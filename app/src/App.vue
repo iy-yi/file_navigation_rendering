@@ -38,30 +38,41 @@
     </v-app-bar>
 
     <v-main>
-      <PDFView />
-      <!-- <StructureView :path="path"/> -->
-
+      <div v-if="this.isFile">
+        <PDFView :path="path" />
+      </div>
+      <div v-else>
+        <StructureView :path="path"/>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import StructureView from './components/StructureView';
+import StructureView from './components/StructureView';
 import PDFView from './components/PDFView';
 
 export default {
   name: 'App',
   components: {
-    // StructureView,
+    StructureView,
     PDFView,
   },
   data: () => ({
     path: '',
+    isFile: false,
   }),
   methods: {
     updateHash() {
       const hash = window.location.hash.substring(1);
+      console.log("updateHash", hash);
       this.path = (hash || 'public');
+      if (hash.slice(-3) === 'pdf') {
+        this.isFile = true;
+      }
+      else {
+        this.isFile = false;
+      }
     }
   },
   created() {
