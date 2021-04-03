@@ -22,7 +22,6 @@ app.use((req, res, next) => {
 });
 
 // mount public folder to route '/'
-// app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
 
 
@@ -47,9 +46,6 @@ app.get('/api/files', (req, res) => {
 
 app.get('/api/download', (req, res) => {
   const { file } = req.query;
-  // const file = __dirname + '/'+filePath;
-  // const correctFile = path.normalize(file);
-  // console.log(correctFile);
   try {
     console.log(file);
     res.download("./"+file);
@@ -57,18 +53,6 @@ app.get('/api/download', (req, res) => {
     console.log(err);
     res.status(500).end();
   }
-  // res.status(200).end();
-  // res.download('public', file, (err) => {
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(500).end();
-  //   }
-  //   res.status(200).end();
-  // })
-  // const download = new DownloaderHelper('http://localhost:3000/cmpe273.pdf', __dirname);
-  // download.on('end', () => console.log('Download Completed'))
-  // download.start();
-  // console.log(__dirname);
 });
 
 app.listen(PORT, () => {

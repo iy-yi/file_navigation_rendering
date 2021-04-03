@@ -13,14 +13,16 @@
         </div>
         <div v-if="!this.isLoading">
           <Breadcrumb :p="path"></Breadcrumb>
-          <ul>
-            <template v-for="file in this.structure.files">
-              <File :f="file" :key="file.name" />
-            </template>
+          <v-list dense>
+            <v-list-item-group color="primary">
+              <v-list-item v-for="file in this.structure.files" :key="file.path">
+                <File :f="file" />
+              </v-list-item>
+            </v-list-item-group>
             <template v-for="folder in this.structure.folders">
-              <Folder :f="folder" :key="folder.name"></Folder>
+              <Folder :f="folder" :key="folder.path"/>
             </template>
-          </ul>
+          </v-list>
         </div>
       </div>
     </v-container>
@@ -52,7 +54,7 @@ export default {
   methods: {
     getFiles(path) {
       // window.location.hash = path;
-      axios.get('http://localhost:3000/api/files', {
+      axios.get('http://54.186.105.109:3000/api/files', {
         params: {
           root: path,
         },
@@ -70,7 +72,6 @@ export default {
       })
     },
     updateStructure(path) {
-        this.isFile = false;
         this.isLoading = true;
         this.getFiles(path);
     }

@@ -1,5 +1,9 @@
 <template>
-  <li><strong><a :href="'#'+f.path">{{ f.name }}</a></strong></li>
+  <v-list-item>
+    <!-- <v-list-item-icon><v-icon>folder_open</v-icon></v-list-item-icon> -->
+    <v-icon>mdi-folder-outline</v-icon>
+    <v-list-item-content><a :href="'#'+f.path">{{ f.name }}</a></v-list-item-content>
+  </v-list-item>
 </template>
 
 <script>
@@ -8,11 +12,5 @@ export default {
   props: {
     f: Object,
   },
-  // methods: {
-  //   navigate() {
-  //     console.log('folder:', this.f.path);
-  //     this.$emit('path', this.f.path);
-  //   }
-  // }
 }
 </script>

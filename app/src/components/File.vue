@@ -1,6 +1,7 @@
 <template>
   <!-- <li><a :href="f.path" v-on:click.prevent="viewFile()"><strong>{{ f.name }}</strong></a></li> -->
-  <li><a :href="'#'+f.path"><strong>{{ f.name }}</strong></a></li>
+  <v-list-item-content><a :href="'#'+f.path">{{ f.name }}</a></v-list-item-content>
+  <!-- <v-list-item-content>{{ f.name }}</v-list-item-content> -->
 </template>
 
 <script>

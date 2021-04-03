@@ -6,11 +6,12 @@
     </v-alert>
   </div>
   <v-toolbar dense>
-    <v-btn small @click.stop="prePage">Previous</v-btn>
+    <v-btn small @click.stop="prePage">
+      <v-icon>mdi-arrow-left</v-icon>Previous</v-btn>
     <v-spacer></v-spacer>
     <div class="page">Page: {{pageNum}}/{{pageTotalNum}} </div>
     <v-spacer></v-spacer>
-    <v-btn small @click.stop="nextPage">Next</v-btn>
+    <v-btn small @click.stop="nextPage"><v-icon>mdi-arrow-right</v-icon>Next</v-btn>
   </v-toolbar>
 
   <pdf ref="pdf"
@@ -37,7 +38,7 @@ export default {
       pageNum: 1,
       pageTotalNum: 1,
       message: "",
-      SERVER: 'http://localhost:3000/',
+      SERVER: 'http://54.186.105.109:3000/',
     }
   },
   props: {
@@ -53,7 +54,7 @@ export default {
   },
   methods: {
     downloadFile(fileName) {
-      axios.get(`http://localhost:3000/api/download/`, {
+      axios.get(`http://54.186.105.109:3000/api/download/`, {
         params: {
           file: this.path,
         },
