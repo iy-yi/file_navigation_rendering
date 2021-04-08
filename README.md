@@ -1,1 +1,2 @@
-# vue sample
+## Files navigation & rendering
+This is a simple web app to navigate files and directories, render files with PDFjs, and download files. The frontend is implemented with VueJS/Vuetify. The backend is implemented with NodeJS.

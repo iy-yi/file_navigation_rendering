@@ -37,7 +37,7 @@ export default {
       pageNum: 1,
       pageTotalNum: 1,
       message: "",
-      SERVER: 'http://54.186.105.109:3000/',
+      SERVER: 'http://localhost:3000/',
     }
   },
   props: {
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     downloadFile(fileName) {
-      axios.get(`http://54.186.105.109:3000/api/download/`, {
+      axios.get(this.SERVER+`api/download/`, {
         params: {
           file: this.path,
         },

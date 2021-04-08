@@ -22,20 +22,22 @@ app.use((req, res, next) => {
 
 // mount public folder to route '/'
 app.use(express.static('public'));
+// mount production build
 app.use(express.static(path.join(__dirname, '../app/dist')));
 
-
+// production build
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../app/build/index.html'));
 });
 
+// get files in given directory
 app.get('/api/files', (req, res) => {
   const root = req.query.root || 'public';
   fs.promises.readdir(root, { withFileTypes: true })
     .then((dirents) => {
       const files = dirents.filter((dirent) => dirent.isFile()).map((entry) => ({ ...entry, path: `${root}/${entry.name}` }));
       const directories = dirents.filter((dirent) => dirent.isDirectory()).map((entry) => ({ ...entry, path: `${root}/${entry.name}` }));
-      console.log(files);
+      // console.log(files);
       res.status(200).send({ files, directories, root });
     })
     .catch((err) => {
@@ -43,14 +45,14 @@ app.get('/api/files', (req, res) => {
     });
 });
 
+// download selected file
 app.get('/api/download', (req, res) => {
   const { file } = req.query;
   try {
-    console.log(file);
-    res.download("./"+file);
+    res.download(`./${file}`);
   } catch (err) {
-    console.log(err);
-    res.status(500).end();
+    // console.log(err);
+    res.status(500).end(err);
   }
 });
 

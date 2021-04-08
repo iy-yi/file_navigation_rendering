@@ -51,14 +51,12 @@ export default {
   },
   methods: {
     getFiles(path) {
-      // window.location.hash = path;
       axios.get('http://localhost:3000/api/files', {
         params: {
           root: path,
         },
       })
       .then((response) => {
-        // this.path = path;
         console.log(response.data);
         this.structure.files = response.data.files;
         this.structure.folders = response.data.directories;
@@ -75,7 +73,6 @@ export default {
     }
   },
   created() {
-    // this.getFiles(this.path);
     this.updateStructure(this.path);
   },
   watch: {
