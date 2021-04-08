@@ -34,7 +34,6 @@ export default {
   data(){
     return {
       url: "",
-      // url: "http://localhost:3000/cmpe273.pdf",
       pageNum: 1,
       pageTotalNum: 1,
       message: "",
@@ -87,7 +86,6 @@ export default {
        const pdfURL = this.SERVER+url;
        console.log(pdfURL);
         const loadingTask = pdf.createLoadingTask(pdfURL);
-        // console.log("pdf", pdf);
         this.pageTotalNum = pdf.numPages;
         this.url = loadingTask;
         loadingTask.promise.then(pdf => {

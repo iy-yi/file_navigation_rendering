@@ -33,7 +33,6 @@ import axios from 'axios';
 import Folder from './Folder';
 import File from './File';
 import Breadcrumb from './Breadcrumb';
-// import PDFView from './PDFView';
 
 export default {
   name: 'StructureView',
@@ -45,7 +44,6 @@ export default {
       folders: [],
     },
     isLoading: true,
-    // path: 'public',
     }
   },
   props: {
@@ -54,7 +52,7 @@ export default {
   methods: {
     getFiles(path) {
       // window.location.hash = path;
-      axios.get('http://54.186.105.109:3000/api/files', {
+      axios.get('http://localhost:3000/api/files', {
         params: {
           root: path,
         },

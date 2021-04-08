@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 /dist
-/src/components/Download_orig.vue
 
 
 # local env files

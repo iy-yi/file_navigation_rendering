@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const { DownloaderHelper } = require('node-downloader-helper');
 
 const app = express();
 const PORT = 3000;
@@ -23,14 +22,14 @@ app.use((req, res, next) => {
 
 // mount public folder to route '/'
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../app/dist')));
 
 
 app.get('/', (req, res) => {
-  res.send('PDF files server');
+  res.sendFile(path.join(__dirname, '../app/build/index.html'));
 });
 
 app.get('/api/files', (req, res) => {
-  // console.log(req.query.root);
   const root = req.query.root || 'public';
   fs.promises.readdir(root, { withFileTypes: true })
     .then((dirents) => {
